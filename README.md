@@ -2,7 +2,7 @@
 This project based on [Material-UI](http://callemall.github.io/material-ui/) - Example Project
 
 ## Live Demo
-[http://file.woobi.co.kr/react](http://file.woobi.co.kr/react)
+[http://reactsns.herokuapp.com/index.html](http://reactsns.herokuapp.com/index.html)
 
 ## Installation
 install dependencies:
