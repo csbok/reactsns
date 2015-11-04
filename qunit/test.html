@@ -1,0 +1,74 @@
+<!doctype html>
+  <html>
+<head>
+  <meta charset="utf-8">
+  <title>Calculator Test</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.10.0.css">
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.10.0.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+      
+    var join = function(user, callback) {
+      $.support.cors = true;
+      $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+      url: 'http://localhost:8080/join',
+      dataType: 'json',
+      type: 'POST',
+      data: user,
+      success: function(data) {
+
+          callback(data);
+          start();
+
+
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('', status, err.toString());
+        }.bind(this)
+      });
+
+      stop();
+
+    };
+
+    $(document).ready(function(){
+
+
+    test("userName length validation", function() {
+      user = {userName:"99", password:"test", mail:"my@mail.com", oauthProvider:0, oauthAccessToken:""};
+      join(user, function(data) {
+        equal(data.result, false, data.message);
+      });
+
+      user = {userName:"1111111111111111111111111111111", password:"test", mail:"my@mail.com", oauthProvider:0, oauthAccessToken:""};
+      join(user, function(data) {
+        equal(data.result, false, data.message);
+      });
+    });
+
+    test("password length validation", function() {
+      user = {userName:"12345", password:"99", mail:"my@mail.com", oauthProvider:0, oauthAccessToken:""};
+      join(user, function(data) {
+        equal(data.result, false, data.message);
+      });
+    });
+
+    test("email validation", function() {
+      user = {userName:"12345", password:"12345", mail:"cesilphp", oauthProvider:0, oauthAccessToken:""};
+      join(user, function(data) {
+        equal(data.result, false, data.message);
+      });
+    });
+
+  });
+  </script>
+</head>
+<body>
+  <div id="qunit"></div>  
+</body>
+</html>
+
