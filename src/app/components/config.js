@@ -1,2 +1,2 @@
-//exports.server = 'http://stylecomp.herokuapp.com';
-exports.server = 'http://localhost:8080';
+exports.server = 'http://reactsns-backend.herokuapp.com';
+//exports.server = 'http://localhost:8080';
