@@ -38,8 +38,10 @@
     "react-addons-update": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-dropzone-component": "^0.8.0",
+    "react-redux": "^4.0.0",
     "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.2.1",
+    "redux": "^3.0.4",
     "whatwg-fetch": "^0.10.1"
   }
 }
