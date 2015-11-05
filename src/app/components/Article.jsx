@@ -9,6 +9,7 @@ const CardTitle = require('material-ui/lib/card/card-title');
 const CardActions = require('material-ui/lib/card/card-actions');
 const CardText = require('material-ui/lib/card/card-text');
 const GoodButton = require('./GoodButton.jsx');
+const FollowButton = require('./FollowButton.jsx');
 
 const CommentList = require('./CommentList.jsx');
 const Article = React.createClass({
@@ -26,6 +27,7 @@ const Article = React.createClass({
   </CardText>
   <CardActions>
     <GoodButton article_no={card.article_no} already={card.good_already} goodCount={card.good_count} />
+    <FollowButton user_no={card.user_no} already={false} />
   </CardActions>
   <CardActions>
   </CardActions>
