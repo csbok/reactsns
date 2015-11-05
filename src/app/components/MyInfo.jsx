@@ -3,13 +3,15 @@
 const React = require('react');
 const DropZone = require('./DropZone.jsx');
 const config = require('./config.js');
+const jquery = require('jquery');
 
-var MyInfo = React.createClass({
+const MyInfo = React.createClass({
   communi: function() {
-    $.support.cors = true;
-    $.ajax({
+
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
 
       url: config.server+'/info/curtis',
@@ -22,7 +24,7 @@ var MyInfo = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(config.server, status, err.toString());
-      }.bind(this)
+      }.bind(this),
     });
   },
 
@@ -39,7 +41,7 @@ var MyInfo = React.createClass({
             <DropZone />
         </div>
       )
-  }
+  },
 });
 
 module.exports = MyInfo;

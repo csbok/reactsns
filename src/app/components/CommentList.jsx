@@ -6,14 +6,15 @@ const TextField = require('material-ui/lib/text-field');
 const Avatar = require('material-ui/lib/avatar');
 const config = require('./config.js');
 const global = require('./global.js');
+const jquery = require('jquery');
 
-var CommentWrite = React.createClass({
+const CommentWrite = React.createClass({
   handleArticleSubmit: function(comment) {
     // TODO: 서버에 요청을 수행하고 목록을 업데이트한다
-    $.support.cors = true;
-    $.ajax({
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
       url: config.server+'/comment/'+this.props.article_no,
       dataType: 'json',
@@ -33,13 +34,13 @@ var CommentWrite = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.server, status, err.toString());
-      }.bind(this)
+      }.bind(this),
     });
   },
 
   handleSubmit: function(e) {
     e.preventDefault();
-    var comment = this.refs.comment.getValue().trim();
+    const comment = this.refs.comment.getValue().trim();
     if (!comment) {
       return;
     }
@@ -59,10 +60,10 @@ var CommentWrite = React.createClass({
 
     </div>      
       )
-  }
+  },
 });
 
-var CommentList = React.createClass({
+const CommentList = React.createClass({
     getInitialState () {  
     return {comment: /*this.props.comment*/[]};
   },
@@ -72,10 +73,10 @@ var CommentList = React.createClass({
 
  componentDidMount : function() {
     // TODO: 서버에 요청을 수행하고 목록을 업데이트한다
-    $.support.cors = true;
-    $.ajax({
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
       url: config.server+'/comment/'+this.props.article_no,
       dataType: 'json',
@@ -85,12 +86,12 @@ var CommentList = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.server, status, err.toString());
-      }.bind(this)
+      }.bind(this),
     });
   },
 
   render : function() {
-    var commentNodes = this.state.comment.map(function(comment) {
+    const commentNodes = this.state.comment.map(function(comment) {
         return(
           <div key={comment.comment_no}>{comment.user.userName} {comment.comment}</div>
         );});
@@ -99,10 +100,10 @@ var CommentList = React.createClass({
     return (
       <div>
         {commentNodes}
-        { global.isLogin ? <CommentWrite onRefreshCommentList={this.onRefreshCommentList} article_no={this.props.article_no} /> : null } 
+        {global.isLogin ? <CommentWrite onRefreshCommentList={this.onRefreshCommentList} article_no={this.props.article_no} /> : null} 
       </div>
       )
-  }
+  },
 });
 
 module.exports = CommentList;

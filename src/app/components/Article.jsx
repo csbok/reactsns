@@ -11,10 +11,10 @@ const CardText = require('material-ui/lib/card/card-text');
 const GoodButton = require('./GoodButton.jsx');
 
 const CommentList = require('./CommentList.jsx');
-var Article = React.createClass({
+const Article = React.createClass({
 	render: function() {
 
-    var commentNodes = this.props.article.map(function (card) {
+    const commentNodes = this.props.article.map(function (card) {
 		return (
 <Card key={card.article_no} style={{margin:'20px auto', maxWidth:'500px'}}>
   <CardHeader
@@ -38,7 +38,7 @@ var Article = React.createClass({
         <div>{commentNodes}</div>
     );    
 
-	}
+	},
 });
 
 module.exports = Article;

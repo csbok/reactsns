@@ -1,12 +1,12 @@
 'use strict';
 
 const React = require('react');
-var DropzoneComponent = require('react-dropzone-component');
+const DropzoneComponent = require('react-dropzone-component');
 
-var componentConfig = {
+const componentConfig = {
     allowedFiletypes: ['.jpg', '.png', '.gif'],
     showFiletypeIcon: true,
-    postUrl: 'http://localhost:8080/upload' //'/uploadHandler'
+    postUrl: 'http://localhost:8080/upload', //'/uploadHandler'
 };
 
 /**
@@ -14,8 +14,8 @@ var componentConfig = {
  * please consult
  * http://www.dropzonejs.com/#configuration
  */
-var djsConfig = {
-    addRemoveLinks: true
+const djsConfig = {
+    addRemoveLinks: true,
 };
 
 /**
@@ -23,19 +23,19 @@ var djsConfig = {
  * create an array filled with all your callbacks.
  * @type {Array}
  */
-var callbackArray = [
+const callbackArray = [
     function () {
         console.log('Look Ma, I\'m a callback in an array!');
     },
     function () {
         console.log('Wooooow!');
-    }
+    },
 ];
 
 /**
  * Simple callbacks work too, of course.
  */
-var simpleCallBack = function () {
+const simpleCallBack = function () {
     console.log('I\'m a simple callback');
 };
 
@@ -44,7 +44,7 @@ var simpleCallBack = function () {
  * for pretty much any event.
  * Arrays are accepted.
  */
-var eventHandlers = {
+const eventHandlers = {
     // All of these receive the event as first parameter:
     drop: callbackArray,
     dragstart: null,
@@ -76,17 +76,17 @@ var eventHandlers = {
     // Special Events
     totaluploadprogress: null,
     reset: null,
-    queuecompleted: null
+    queuecompleted: null,
 }
 
-var DropZone = React.createClass({
+const DropZone = React.createClass({
 	render: function() {
 		return (
             <DropzoneComponent config={componentConfig}
                        eventHandlers={eventHandlers}
                        djsConfig={djsConfig} />
                 )
-	}
+	},
 });
 
 module.exports = DropZone;

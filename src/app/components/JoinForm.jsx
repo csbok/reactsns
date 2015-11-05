@@ -5,18 +5,19 @@ const Snackbar = require('material-ui/lib/snackbar');
 const TextField = require('material-ui/lib/text-field');
 const config = require('./config.js');
 const global = require('./global.js');
+const jquery = require('jquery');
 // userName
 // password
 // mail
-var JoinForm = React.createClass({
+const JoinForm = React.createClass({
   getInitialState () {  
     return {message: ''};
   },
   handleSubmit: function(e) {
     e.preventDefault();
-    var id = this.refs.userName.getValue().trim();
-    var pw = this.refs.password.getValue().trim();
-    var mail = this.refs.mail.getValue().trim();
+    const id = this.refs.userName.getValue().trim();
+    const pw = this.refs.password.getValue().trim();
+    const mail = this.refs.mail.getValue().trim();
 
     if (!id) {
       this.setState({message:'아이디를 입력해주세요.' });
@@ -34,10 +35,39 @@ var JoinForm = React.createClass({
       this.setState({message:'메일 주소를 입력해주세요.'});
       this.refs.snackbar.show();
     }
-    $.support.cors = true;
-    $.ajax({
+
+/*
+// https://developers.google.com/web/updates/2015/03/introduction-to-fetch
+fetch(config.server+'/join', 
+{mode: 'cors', method: 'post',
+    headers: {  
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8", 
+    },
+ body: 'userName='+id+'&password='+pw+'&mail='+mail+'&oauthProvider=0&oauthAccessToken=""',
+}).then(function(response) {
+    return response.json()
+  }).then(function(json) {
+    console.log('parsed json', json)
+        if (json.result) {
+          global.mainSnackbar.setMessage('회원가입이 성공하였습니다.');
+          global.mainSnackbar.show();
+          global.joinDialog.dismiss();
+          global.loginDialog.show();
+        } else {
+          this.setState({message:json.message});
+          this.refs.snackbar.show();
+        }
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
+        this.setState({message:'예상치 못한 오류가 발생하였습니다.'});
+        this.refs.snackbar.show();
+  })
+*/
+
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
       url: config.server+'/join',
       dataType: 'json',
@@ -57,8 +87,9 @@ var JoinForm = React.createClass({
       error: function(xhr, status, err) {
         this.setState({message:'예상치 못한 오류가 발생하였습니다.'});
         this.refs.snackbar.show();
-      }.bind(this)
+      }.bind(this),
     });
+
   },
 
   render: function() {
@@ -73,7 +104,7 @@ var JoinForm = React.createClass({
         <div><RaisedButton label="회원가입" primary={true} style={{width:'260px'}} onTouchTap={this.handleSubmit} /></div>
       </form>
       )
-  }
+  },
 });
 
 module.exports = JoinForm;

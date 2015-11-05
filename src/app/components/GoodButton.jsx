@@ -4,19 +4,21 @@ const React = require('react');
 const FlatButton = require('material-ui/lib/flat-button');
 const config = require('./config.js');
 const global = require('./global.js');
+const jquery = require('jquery');
 
-var GoodButton = React.createClass({
+const GoodButton = React.createClass({
   getInitialState () {  
-    var good = '';
+    let good = '';
     this.props.already ?  good = '좋아요 취소' : good = '좋아요';
     return {goodMessage : good, goodCount : this.props.goodCount };
   },
  handleLikeSubmit: function(e) {
     e.preventDefault();
-    $.support.cors = true;
-    $.ajax({
+
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
       url: config.server+'/good/' + this.props.article_no,
       dataType: 'json',
@@ -38,14 +40,14 @@ var GoodButton = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(config.server, status, err.toString());
-      }.bind(this)
+      }.bind(this),
     });
   },
 render: function() {
   return (
     <FlatButton label={this.state.goodMessage+this.state.goodCount} onTouchTap={this.handleLikeSubmit} />
     )
-}
+},
 });
 
 module.exports = GoodButton;

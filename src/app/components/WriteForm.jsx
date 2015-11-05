@@ -8,10 +8,10 @@ const CardActions = require('material-ui/lib/card/card-actions');
 const FlatButton = require('material-ui/lib/flat-button');
 const TextField = require('material-ui/lib/text-field');
 
-var WriteForm = React.createClass({
+const WriteForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var content = this.refs.content.getValue().trim();
+    let content = this.refs.content.getValue().trim();
     if (!content) {
       return;
     }
@@ -36,7 +36,7 @@ var WriteForm = React.createClass({
 			  </CardActions>
 			</Card>
 			)
-		}	
+		},
 });
 
 module.exports = WriteForm;

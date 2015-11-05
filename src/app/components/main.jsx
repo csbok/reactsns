@@ -25,7 +25,7 @@ const LoginForm = require('./LoginForm.jsx');
 const config = require('./config.js');
 const global = require('./global.js');
 
-var MainSnackBar = React.createClass({
+const MainSnackBar = React.createClass({
   getInitialState: function() {
     return {message:''};
   },
@@ -45,10 +45,10 @@ var MainSnackBar = React.createClass({
           message={this.state.message}
           ref="snackbar" />
           )
-  }
-})
+  },
+});
 
-var JoinDialog = React.createClass({
+const JoinDialog = React.createClass({
  componentDidMount: function() {
     global.joinDialog = this.refs.joinDialog;
   },
@@ -63,17 +63,17 @@ var JoinDialog = React.createClass({
             </div>
           </Dialog>
       )
-  }
+  },
 });
 
-var LoginDialog = React.createClass({
+const LoginDialog = React.createClass({
    componentDidMount: function() {
       global.loginDialog = this.refs.loginDialog;
     },
 
   render: function() {
     let standardActions = [
-      { text: 'Okay' }
+      { text: 'Okay' },
     ];    
 
     return (
@@ -85,11 +85,11 @@ var LoginDialog = React.createClass({
           </div>
         </Dialog>      
       )
-  }
+  },
 });
 
 
-var Main = React.createClass({
+const Main = React.createClass({
   getInitialState: function() {
     return { tabsValue:''};
   },
@@ -113,17 +113,17 @@ var Main = React.createClass({
   {
      type: MenuItem.Types.LINK,
      payload: 'https://github.com/callemall/material-ui',
-     text: 'GitHub'
+     text: 'GitHub',
   },
   {
      text: 'Disabled',
-     disabled: true
+     disabled: true,
   },
   {
      type: MenuItem.Types.LINK,
      payload: 'https://www.google.com',
      text: 'Disabled Link',
-     disabled: true
+     disabled: true,
   },
 ];
 
@@ -240,7 +240,7 @@ iconElementRight={<span><FlatButton style={{backgroundColor:'rgba(255,255,255,0)
      
       </div>
     );
-  }
+  },
 
 });
 

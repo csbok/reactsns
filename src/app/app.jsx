@@ -2,7 +2,7 @@ import NewArticle from './components/NewArticle.jsx'
 
 (function () {
   let React = require('react');
-  let ReactDom = require('react-dom');
+  let ReactDOM = require('react-dom');
   let injectTapEventPlugin = require('react-tap-event-plugin');
   let Main = require('./components/main.jsx'); // Our custom react component
 
@@ -32,11 +32,9 @@ const {
   //https://github.com/zilverline/react-tap-event-plugin
   injectTapEventPlugin();
 
-
-
-  // Render the main app react component into the document body.
+  // Render the main app react component into the app div.
   // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-  ReactDom.render((
+  ReactDOM.render((
   <Router history={createHistory({queryKey: false})}>
     <Route path="/" component={Main}>
       <IndexRoute component={NewArticle} />
@@ -44,6 +42,6 @@ const {
       <Route path="login" component={LoginForm} />
     </Route>
     {/*<Redirect from="customization" to="/login" />*/}
-  </Router>), document.body);
+  </Router>), document.getElementById('app'));
 
 })();

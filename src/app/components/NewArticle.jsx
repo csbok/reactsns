@@ -3,6 +3,7 @@ import Article from './Article.jsx'
 import WriteForm from './WriteForm.jsx'
 import config from './config.js'
 import global from './global.js'
+import jquery from 'jquery'
 
 export default class NewArticle extends React.Component {
 
@@ -15,10 +16,20 @@ export default class NewArticle extends React.Component {
   
 
   loadFromServer() {    
-    $.support.cors = true;
-    $.ajax({
+    fetch(config.server+'/new')
+      .then(function(response) {
+      return response.json()
+    }).then(function(json) {
+//      console.log('parsed json', json)
+        this.setState({article: json});
+    }).catch(function(ex) {
+      console.log('parsing failed', ex)
+    });
+
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
 
       url: config.server+'/new',
@@ -29,15 +40,15 @@ export default class NewArticle extends React.Component {
       }.bind(this),
       error: function(xhr, status, err) {
 //        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }.bind(this),
     });
   }
 
   handleArticleSubmit(article) {
-    $.support.cors = true;
-    $.ajax({
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
       url: config.server+'/write',
       dataType: 'json',
@@ -55,7 +66,7 @@ export default class NewArticle extends React.Component {
       }.bind(this),
       error: function(xhr, status, err) {
 //        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }.bind(this),
     });
   }
 
@@ -67,7 +78,7 @@ export default class NewArticle extends React.Component {
   render() {
     return (
       <div>
-        {global.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} /> : null }
+        {global.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} /> : null} 
         <Article article={this.state.article}  />
       </div>
       );

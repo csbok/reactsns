@@ -5,15 +5,16 @@ const Snackbar = require('material-ui/lib/snackbar');
 const TextField = require('material-ui/lib/text-field');
 const config = require('./config.js');
 const global = require('./global.js');
+const jquery = require('jquery');
 
-var LoginForm = React.createClass({
+const LoginForm = React.createClass({
   getInitialState () {  
     return {message: ''};
   },
   handleSubmit: function(e) {
     e.preventDefault();
-    var id = this.refs.login_id.getValue().trim();
-    var pw = this.refs.login_pw.getValue().trim();
+    const id = this.refs.login_id.getValue().trim();
+    const pw = this.refs.login_pw.getValue().trim();
     if (!id) {
       this.setState({message:'아이디를 입력해주세요.'});
       this.refs.snackbar.show();
@@ -25,10 +26,11 @@ var LoginForm = React.createClass({
       this.refs.snackbar.show();
       return;
     }
-    $.support.cors = true;
-    $.ajax({
+    
+    jquery.support.cors = true;
+    jquery.ajax({
       xhrFields: {
-          withCredentials: true
+          withCredentials: true,
       },
       url: config.server+'/login',
       dataType: 'json',
@@ -47,7 +49,7 @@ var LoginForm = React.createClass({
       error: function(xhr, status, err) {
         this.setState({message:'예상치 못한 오류가 발생하였습니다.'});
         this.refs.snackbar.show();
-      }.bind(this)
+      }.bind(this),
     });
   },
 
@@ -56,7 +58,7 @@ var LoginForm = React.createClass({
 
   render: function() {
     let standardActions = [
-      { text: 'Okay' }
+      { text: 'Okay' },
     ];    
     return (
       <form onSubmit={this.handleSubmit}>
@@ -68,7 +70,7 @@ var LoginForm = React.createClass({
         <div><RaisedButton label="로그인" primary={true} style={{width:'260px'}} onTouchTap={this.handleSubmit} /></div>
       </form>
     );
-  }
+  },
 });
 
 module.exports = LoginForm;
