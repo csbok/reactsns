@@ -1,4 +1,4 @@
-import * as types from '../constant/ActionTypes'
+import * as types from '../constants/ActionTypes'
 
 export function loginUser(userName) {
 	return { type: types.LOGIN_USER, userName };

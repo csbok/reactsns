@@ -7,6 +7,13 @@ const config = require('./config.js');
 const global = require('./global.js');
 const jquery = require('jquery');
 
+import { bindActionCreators } from 'redux';
+import * as UserActions from '../actions/user';
+import userStore from '../store/userStore';
+
+
+const actions = bindActionCreators(UserActions, userStore.dispatch);
+
 const LoginForm = React.createClass({
   getInitialState () {  
     return {message: ''};
@@ -41,6 +48,7 @@ const LoginForm = React.createClass({
           global.loginDialog.dismiss();
           global.mainSnackbar.setMessage('로그인에 성공하였습니다');
           global.mainSnackbar.show();
+          actions.loginUser(id);
         } else { 
           this.setState({message:data.message});
           this.refs.snackbar.show();

@@ -100,7 +100,7 @@ const CommentList = React.createClass({
     return (
       <div>
         {commentNodes}
-        {global.isLogin ? <CommentWrite onRefreshCommentList={this.onRefreshCommentList} article_no={this.props.article_no} /> : null} 
+        {this.props.isLogin ? <CommentWrite onRefreshCommentList={this.onRefreshCommentList} article_no={this.props.article_no} /> : null} 
       </div>
       )
   },

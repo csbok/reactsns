@@ -5,15 +5,23 @@ import config from './config.js'
 import global from './global.js'
 import jquery from 'jquery'
 
+import userStore from '../store/userStore';
+
 export default class NewArticle extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { article: [] };
+    this.state = { article: [], isLogin : false };
     this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
+    userStore.subscribe(this.onLogin.bind(this));
   }
   
+  onLogin() {
+    let user = userStore.getState();
+    this.setState({isLogin: user.isLogin});
+    //this.forceUpdate();
+  }
 
   loadFromServer() {    
     fetch(config.server+'/new')
@@ -78,8 +86,8 @@ export default class NewArticle extends React.Component {
   render() {
     return (
       <div>
-        {global.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} /> : null} 
-        <Article article={this.state.article}  />
+        {this.state.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} /> : null} 
+        <Article article={this.state.article}  isLogin={this.state.isLogin} />
       </div>
       );
   }

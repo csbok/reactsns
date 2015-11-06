@@ -17,13 +17,12 @@ const Tabs = require('material-ui/lib/tabs/tabs');
 const Tab = require('material-ui/lib/tabs/tab');
 
 const MyInfo = require('./MyInfo.jsx');
-const WriteForm = require('./WriteForm.jsx');
-const Article = require('./Article.jsx');
 const JoinForm = require('./JoinForm.jsx')
 const LoginForm = require('./LoginForm.jsx');
 
 const config = require('./config.js');
 const global = require('./global.js');
+
 
 const MainSnackBar = React.createClass({
   getInitialState: function() {
