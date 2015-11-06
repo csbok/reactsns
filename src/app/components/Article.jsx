@@ -14,7 +14,7 @@ const FollowButton = require('./FollowButton.jsx');
 const CommentList = require('./CommentList.jsx');
 const Article = React.createClass({
 	render: function() {
-    const isLogin = this.props.isLogin;
+    const user = this.props.user;
     const commentNodes = this.props.article.map(function (card) {
 		return (
 <Card key={card.article_no} style={{margin:'20px auto', maxWidth:'500px'}}>
@@ -31,7 +31,7 @@ const Article = React.createClass({
   </CardActions>
   <CardActions>
   </CardActions>
-  <CommentList article_no={card.article_no} isLogin={isLogin} />
+  <CommentList article_no={card.article_no} user={user} />
   }
 </Card>
 			);});

@@ -53,7 +53,7 @@ const CommentWrite = React.createClass({
     return (
     <div>
     <Avatar   src="http://lorempixel.com/100/100/nature/" />
-    test
+    {this.props.user.userName}
       <TextField 
     floatingLabelText="여기에 글을 쓰세요." ref="comment" />
           <FlatButton label="글쓰기" primary={true} onTouchTap={this.handleSubmit}  />
@@ -100,7 +100,7 @@ const CommentList = React.createClass({
     return (
       <div>
         {commentNodes}
-        {this.props.isLogin ? <CommentWrite onRefreshCommentList={this.onRefreshCommentList} article_no={this.props.article_no} /> : null} 
+        {this.props.user.isLogin ? <CommentWrite onRefreshCommentList={this.onRefreshCommentList} article_no={this.props.article_no} user={this.props.user} /> : null} 
       </div>
       )
   },

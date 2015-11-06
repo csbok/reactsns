@@ -23,7 +23,7 @@ const WriteForm = React.createClass({
 		return (
 			<Card style={{margin:'20px auto', maxWidth:'500px'}}>
 			  <CardHeader
-			    title="Demo Url Based Avatar"
+			    title={this.props.user.userName}
 			    subtitle="Subtitle"
 			    avatar="http://lorempixel.com/100/100/nature/"/>
 			<div style={{paddingLeft:'10px', paddingRight:'10px'}}>

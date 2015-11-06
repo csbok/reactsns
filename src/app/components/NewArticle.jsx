@@ -11,15 +11,14 @@ export default class NewArticle extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { article: [], isLogin : false };
+    this.state = { article: [], user : {} };
     this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
     userStore.subscribe(this.onLogin.bind(this));
   }
   
   onLogin() {
-    let user = userStore.getState();
-    this.setState({isLogin: user.isLogin});
+    this.setState({user: userStore.getState()});
     //this.forceUpdate();
   }
 
@@ -86,8 +85,8 @@ export default class NewArticle extends React.Component {
   render() {
     return (
       <div>
-        {this.state.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} /> : null} 
-        <Article article={this.state.article}  isLogin={this.state.isLogin} />
+        {this.state.user.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} user={this.state.user} /> : null} 
+        <Article article={this.state.article}  user={this.state.user} />
       </div>
       );
   }
