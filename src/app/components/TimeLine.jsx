@@ -7,7 +7,7 @@ import jquery from 'jquery'
 
 import userStore from '../store/userStore';
 
-export default class NewArticle extends React.Component {
+export default class TimeLine extends React.Component {
 
   constructor(props) {
     super(props);

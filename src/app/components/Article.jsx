@@ -25,7 +25,7 @@ const Article = React.createClass({
   <CardText>
   {card.content}
   </CardText>
-  <CardActions>
+  <CardActions style={{textAlign:'right'}}>
     <GoodButton article_no={card.article_no} already={card.good_already} goodCount={card.good_count} />
     <FollowButton user_no={card.user_no} already={false} />
   </CardActions>

@@ -23,6 +23,7 @@ const LoginForm = require('./LoginForm.jsx');
 const config = require('./config.js');
 const global = require('./global.js');
 
+import userStore from '../store/userStore';
 
 const MainSnackBar = React.createClass({
   getInitialState: function() {
@@ -90,7 +91,13 @@ const LoginDialog = React.createClass({
 
 const Main = React.createClass({
   getInitialState: function() {
-    return { tabsValue:''};
+    userStore.subscribe(this.onLogin.bind(this));
+    return { tabsValue:'', user: userStore.getState()};
+  },
+  
+  onLogin: function() {
+    this.setState({user: userStore.getState()});
+    //this.forceUpdate();
   },
 
   _handleTabChange(value, e, tab) {
@@ -202,8 +209,13 @@ const Main = React.createClass({
             </IconButton>
             <div style={styles.div}/>
               <Avatar src="http://lorempixel.com/100/100/nature/" style={styles.avatar} />
-                <FlatButton label="로그인"  onTouchTap={()=>{global.loginDialog.show();}}  style={styles.loginButton} />
-                <FlatButton label="회원가입"  onTouchTap={()=>{global.joinDialog.show();}}  style={styles.joinButton} />
+              {this.state.user.isLogin ? 
+                <FlatButton label="로그아웃"  onTouchTap={()=>{console.log('todo!');}}  style={styles.loginButton} /> :
+                <div>
+                  <FlatButton label="로그인"  onTouchTap={()=>{global.loginDialog.show();}}  style={styles.loginButton} />
+                  <FlatButton label="회원가입"  onTouchTap={()=>{global.joinDialog.show();}}  style={styles.joinButton} />
+                </div>
+              }
               <Tabs
     value={this.state.tabIndex}
               onChange={this._handleTabChange}
@@ -215,7 +227,9 @@ const Main = React.createClass({
                 <Tab label="내 정보" value="b" route="/myinfo">
                   {this.props.children}
                   {/*<MyInfo ref="myInfo" />*/}
-                  
+                </Tab>
+                <Tab label="타임라인" route="/timeline">
+                  {this.props.children}
                 </Tab>
                 <Tab label="로그인" route="/login">
                   {this.props.children}
