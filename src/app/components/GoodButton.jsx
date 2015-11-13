@@ -22,7 +22,7 @@ const GoodButton = React.createClass({
       },
       url: config.server+'/good/' + this.props.article_no,
       dataType: 'json',
-      type: 'POST',
+      type: 'GET',
       data: '',
       success: function(data) {
         if (!data.result) {

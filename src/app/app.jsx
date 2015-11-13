@@ -1,4 +1,5 @@
 import NewArticle from './components/NewArticle.jsx'
+import TimeLine from './components/TimeLine.jsx'
 
 (function () {
   let React = require('react');
@@ -38,6 +39,7 @@ const {
   <Router history={createHistory({queryKey: false})}>
     <Route path="/" component={Main}>
       <IndexRoute component={NewArticle} />
+      <Route path="timeline" component={TimeLine} />
       <Route path="myinfo" component={MyInfo} />
       <Route path="login" component={LoginForm} />
     </Route>

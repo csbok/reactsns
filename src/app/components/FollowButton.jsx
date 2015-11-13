@@ -22,7 +22,7 @@ const FollowButton = React.createClass({
       },
       url: config.server+'/follow/' + this.props.user_no,
       dataType: 'json',
-      type: 'POST',
+      type: 'GET',
       data: '',
       success: function(data) {
         console.log(data);

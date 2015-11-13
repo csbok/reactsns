@@ -51,13 +51,11 @@ const CommentWrite = React.createClass({
   },
   render: function() {
     return (
-    <div>
-    <Avatar   src="http://lorempixel.com/100/100/nature/" />
-    {this.props.user.userName}
-      <TextField 
-    floatingLabelText="여기에 글을 쓰세요." ref="comment" />
-          <FlatButton label="글쓰기" primary={true} onTouchTap={this.handleSubmit}  />
-
+    <div style={{width:'100%',textAlign:'center'}}>
+    <Avatar src="http://lorempixel.com/100/100/nature/" style={{verticalAlign:'middle'}} />
+    <div style={{display:'inline-block',width:'80px',verticalAlign:'middle',textAlign:'left',margin:'5px'}}>{this.props.user.userName}</div>
+      <TextField ref="comment" style={{verticalAlign:'middle', width:'260px'}} />
+      <FlatButton label="글쓰기" primary={true} onTouchTap={this.handleSubmit}  style={{verticalAlign:'middle'}} />
     </div>      
       )
   },
@@ -93,7 +91,7 @@ const CommentList = React.createClass({
   render : function() {
     const commentNodes = this.state.comment.map(function(comment) {
         return(
-          <div key={comment.comment_no}>{comment.user_name} {comment.comment}</div>
+          <div key={comment.comment_no} style={{marginLeft:'5px'}}><div style={{display:'inline-block',width:'100px'}}>{comment.user_name}</div> {comment.comment}</div>
         );});
 
 
