@@ -15,7 +15,7 @@
         xhrFields: {
             withCredentials: true
         },
-      url: 'http://localhost:8080/join',
+      url: 'http://localhost:8088/join',
       dataType: 'json',
       type: 'POST',
       data: user,
@@ -39,7 +39,7 @@
 
 
     test("userName length validation", function() {
-      user = {userName:"99", password:"test", mail:"my@mail.com", oauthProvider:0, oauthAccessToken:""};
+      user = {id:"99", pw:"test", mail:"my@mail.com", oauthProvider:0, oauthAccessToken:""};
       join(user, function(data) {
         equal(data.result, false, data.message);
       });

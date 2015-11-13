@@ -93,7 +93,7 @@ const CommentList = React.createClass({
   render : function() {
     const commentNodes = this.state.comment.map(function(comment) {
         return(
-          <div key={comment.comment_no}>{comment.user.userName} {comment.comment}</div>
+          <div key={comment.comment_no}>{comment.user_name} {comment.comment}</div>
         );});
 
 

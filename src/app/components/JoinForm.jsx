@@ -72,7 +72,7 @@ fetch(config.server+'/join',
       url: config.server+'/join',
       dataType: 'json',
       type: 'POST',
-      data: {userName:id, password:pw, mail:mail, oauthProvider:0, oauthAccessToken:""},
+      data: {id:id, pw:pw, mail:mail, oauthProvider:0, oauthAccessToken:""},
       success: function(data) {
         if (data.result) {
           global.mainSnackbar.setMessage('회원가입이 성공하였습니다.');
