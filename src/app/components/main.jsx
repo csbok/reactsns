@@ -22,8 +22,17 @@ const LoginForm = require('./LoginForm.jsx');
 
 const config = require('./config.js');
 const global = require('./global.js');
+const jquery = require('jquery');
 
+
+
+import { bindActionCreators } from 'redux';
+import * as UserActions from '../actions/user';
 import userStore from '../store/userStore';
+
+
+const actions = bindActionCreators(UserActions, userStore.dispatch);
+
 
 const MainSnackBar = React.createClass({
   getInitialState: function() {
@@ -109,6 +118,37 @@ const Main = React.createClass({
   _handleButtonClick: function() {
 
   },
+
+  handleLogoutButtonClick: function(e) {
+    e.preventDefault();
+
+    jquery.support.cors = true;
+    jquery.ajax({
+      xhrFields: {
+          withCredentials: true,
+      },
+      url: config.server+'/logout',
+      dataType: 'json',
+      type: 'GET',
+      data: null,
+      success: function(data) {
+        if (data.result) {
+          global.loginDialog.dismiss();
+          global.mainSnackbar.setMessage('로그아웃 되었습니다.');
+          global.mainSnackbar.show();
+          actions.logoutUser();
+        } else { 
+          global.mainSnackbar.setState({message:data.message});
+          global.mainSnackbar.show();
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        global.mainSnackbar.setState({message:'예상치 못한 오류가 발생하였습니다.'});
+        global.mainSnackbar.show();
+      }.bind(this),
+    });
+  },
+
 
   render: function() {
     let menuItems = [
@@ -210,7 +250,7 @@ const Main = React.createClass({
             <div style={styles.div}/>
               <Avatar src="http://lorempixel.com/100/100/nature/" style={styles.avatar} />
               {this.state.user.isLogin ? 
-                <FlatButton label="로그아웃"  onTouchTap={()=>{console.log('todo!');}}  style={styles.loginButton} /> :
+                <FlatButton label="로그아웃"  onTouchTap={this.handleLogoutButtonClick}  style={styles.loginButton} /> :
                 <div>
                   <FlatButton label="로그인"  onTouchTap={()=>{global.loginDialog.show();}}  style={styles.loginButton} />
                   <FlatButton label="회원가입"  onTouchTap={()=>{global.joinDialog.show();}}  style={styles.joinButton} />
@@ -223,6 +263,7 @@ const Main = React.createClass({
                 contentContainerStyle={styles.contentContainerStyle}>
                 <Tab label="새로운 글" value="a" route="/">
                   {this.props.children}
+                
                 </Tab>
                 <Tab label="내 정보" value="b" route="/myinfo">
                   {this.props.children}

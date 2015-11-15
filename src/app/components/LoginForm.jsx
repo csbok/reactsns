@@ -48,7 +48,7 @@ const LoginForm = React.createClass({
           global.loginDialog.dismiss();
           global.mainSnackbar.setMessage('로그인에 성공하였습니다');
           global.mainSnackbar.show();
-          actions.loginUser(id);
+          actions.loginUser(id, data.user_no);
         } else { 
           this.setState({message:data.message});
           this.refs.snackbar.show();
