@@ -100,6 +100,32 @@ const LoginDialog = React.createClass({
 
 const Main = React.createClass({
   getInitialState: function() {
+    jquery.support.cors = true;
+    jquery.ajax({
+      xhrFields: {
+          withCredentials: true,
+      },
+      url: config.server+'/login_success',
+      dataType: 'json',
+      type: 'GET',
+      data: '',
+      success: function(data) {
+        if (data.result) {
+          global.loginDialog.dismiss();
+          global.mainSnackbar.setMessage('로그인에 성공하였습니다');
+          global.mainSnackbar.show();
+          actions.loginUser(data.user.display_name, data.user.user_no);
+        } else { 
+          this.setState({message:data.message});
+          this.refs.snackbar.show();
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.setState({message:'예상치 못한 오류가 발생하였습니다.'});
+        this.refs.snackbar.show();
+      }.bind(this),
+    });
+
     userStore.subscribe(this.onLogin.bind(this));
     return { tabsValue:'', user: userStore.getState()};
   },

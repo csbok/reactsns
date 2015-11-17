@@ -39,16 +39,16 @@ const LoginForm = React.createClass({
       xhrFields: {
           withCredentials: true,
       },
-      url: config.server+'/login',
+      url: config.server+'/auth/local',
       dataType: 'json',
       type: 'POST',
-      data: {id:id, pw:pw},
+      data: {username:id, password:pw},
       success: function(data) {
         if (data.result) {
           global.loginDialog.dismiss();
           global.mainSnackbar.setMessage('로그인에 성공하였습니다');
           global.mainSnackbar.show();
-          actions.loginUser(id, data.user_no);
+          actions.loginUser(data.user.display_name, data.user.user_no);
         } else { 
           this.setState({message:data.message});
           this.refs.snackbar.show();
@@ -76,6 +76,9 @@ const LoginForm = React.createClass({
         <div><TextField ref="login_id" floatingLabelText="name or email" /></div>
         <div><TextField ref="login_pw" floatingLabelText="password" /></div>
         <div><RaisedButton label="로그인" primary={true} style={{width:'260px'}} onTouchTap={this.handleSubmit} /></div>
+        <div><a href="http://localhost:8088/auth/facebook">페이스북으로 로그인</a></div>
+        <div><a href="http://localhost:8088/auth/google">구글로 로그인</a></div>
+
       </form>
     );
   },
