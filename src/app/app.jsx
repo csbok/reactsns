@@ -42,6 +42,8 @@ const {
       <Route path="timeline" component={TimeLine} />
       <Route path="myinfo" component={MyInfo} />
       <Route path="login" component={LoginForm} />
+      <Route path="/_=_" component={NewArticle} />
+
     </Route>
     {/*<Redirect from="customization" to="/login" />*/}
   </Router>), document.getElementById('app'));
