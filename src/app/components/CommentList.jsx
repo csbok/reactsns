@@ -63,13 +63,14 @@ const CommentWrite = React.createClass({
 
 const CommentList = React.createClass({
     getInitialState () {  
+      this._loadFromServer();
     return {comment: /*this.props.comment*/[]};
   },
  onRefreshCommentList: function() {
-    this.componentDidMount();
+    this._loadFromServer();
  },
 
- componentDidMount : function() {
+ _loadFromServer : function() {
     // TODO: 서버에 요청을 수행하고 목록을 업데이트한다
     jquery.support.cors = true;
     jquery.ajax({

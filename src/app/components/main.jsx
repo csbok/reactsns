@@ -115,10 +115,12 @@ const Main = React.createClass({
           global.mainSnackbar.setMessage('로그인에 성공하였습니다');
           global.mainSnackbar.show();
           actions.loginUser(data.user.display_name, data.user.user_no);
-        } else { 
-          this.setState({message:data.message});
-          this.refs.snackbar.show();
         }
+        /* else { 
+          console.log("!!! " + JSON.stringify(data));
+          global.mainSnackbar.setState({message:data.message});
+          global.mainSnackbar.show();
+        }*/
       }.bind(this),
       error: function(xhr, status, err) {
         this.setState({message:'예상치 못한 오류가 발생하였습니다.'});
@@ -136,8 +138,9 @@ const Main = React.createClass({
   },
 
   _handleTabChange(value, e, tab) {
-//    this.refs.myInfo.communi();
-    this.props.history.pushState(null, tab.props.route);
+    if (!isNaN(value)) {
+      this.props.history.pushState(null, tab.props.route);
+    }
 //    this.setState({tabIndex: this._getSelectedIndex()});
   },
 
@@ -287,18 +290,18 @@ const Main = React.createClass({
               onChange={this._handleTabChange}
                               style={styles.tabs}
                 contentContainerStyle={styles.contentContainerStyle}>
-                <Tab label="새로운 글" value="a" route="/">
+                <Tab label="새로운 글" value="1" route="/">
                   {this.props.children}
                 
                 </Tab>
-                <Tab label="내 정보" value="b" route="/myinfo">
+                <Tab label="내 정보" value="2" route="/myinfo">
                   {this.props.children}
                   {/*<MyInfo ref="myInfo" />*/}
                 </Tab>
-                <Tab label="타임라인" route="/timeline">
+                <Tab label="타임라인" value="3" route="/timeline">
                   {this.props.children}
                 </Tab>
-                <Tab label="로그인" route="/login">
+                <Tab label="로그인" value="4" route="/login">
                   {this.props.children}
                 </Tab>
               </Tabs>
