@@ -63,15 +63,9 @@ const CommentWrite = React.createClass({
 
 const CommentList = React.createClass({
     getInitialState () {  
-      this._loadFromServer();
-    return {comment: /*this.props.comment*/[]};
+    return {comment: this.props.comment};
   },
  onRefreshCommentList: function() {
-    this._loadFromServer();
- },
-
- _loadFromServer : function() {
-    // TODO: 서버에 요청을 수행하고 목록을 업데이트한다
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
@@ -87,12 +81,12 @@ const CommentList = React.createClass({
         console.error(this.props.server, status, err.toString());
       }.bind(this),
     });
-  },
+ },
 
   render : function() {
     const commentNodes = this.state.comment.map(function(comment) {
         return(
-          <div key={comment.comment_no} style={{marginLeft:'5px'}}><div style={{display:'inline-block',width:'100px'}}>{comment.user_name}</div> {comment.comment}</div>
+          <div key={comment.comment_no} style={{marginLeft:'5px'}}><div style={{display:'inline-block',width:'100px'}}>{comment.display_name}</div> {comment.comment}</div>
         );});
 
 

@@ -31,7 +31,7 @@ const Article = React.createClass({
   </CardActions>
   <CardActions>
   </CardActions>
-  <CommentList article_no={card.article_no} user={user} />
+  <CommentList article_no={card.article_no} comment={card.comment_list} user={user} />
   }
 </Card>
 			);});
