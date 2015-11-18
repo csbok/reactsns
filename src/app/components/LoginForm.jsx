@@ -3,6 +3,7 @@ const React = require('react');
 const RaisedButton = require('material-ui/lib/raised-button');
 const Snackbar = require('material-ui/lib/snackbar');
 const TextField = require('material-ui/lib/text-field');
+const FontIcon = require('material-ui/lib/font-icon');
 const config = require('./config.js');
 const global = require('./global.js');
 const jquery = require('jquery');
@@ -10,7 +11,6 @@ const jquery = require('jquery');
 import { bindActionCreators } from 'redux';
 import * as UserActions from '../actions/user';
 import userStore from '../store/userStore';
-
 
 const actions = bindActionCreators(UserActions, userStore.dispatch);
 
@@ -63,8 +63,8 @@ const LoginForm = React.createClass({
 
 
 
-
   render: function() {
+
     let standardActions = [
       { text: 'Okay' },
     ];    
@@ -76,9 +76,16 @@ const LoginForm = React.createClass({
         <div><TextField ref="login_id" floatingLabelText="name or email" /></div>
         <div><TextField ref="login_pw" floatingLabelText="password" /></div>
         <div><RaisedButton label="로그인" primary={true} style={{width:'260px'}} onTouchTap={this.handleSubmit} /></div>
-        <div><a href="http://localhost:8088/auth/facebook">페이스북으로 로그인</a></div>
-        <div><a href="http://localhost:8088/auth/google">구글로 로그인</a></div>
-
+        <p>
+            <RaisedButton secondary={true} style={{width:'260px'}} label="페이스북으로 로그인" labelPosition="after" onTouchTap={()=>{window.location.href= "http://localhost:8088/auth/facebook";}}>
+              <FontIcon className="muidocs-icon-custom-github" />
+            </RaisedButton>
+        </p>
+        <p>
+            <RaisedButton secondary={true} style={{width:'260px'}} label="구글로 로그인" labelPosition="after" onTouchTap={()=>{window.location.href= "http://localhost:8088/auth/google";}}>
+              <FontIcon className="muidocs-icon-custom-github" />
+            </RaisedButton>
+        </p>
       </form>
     );
   },

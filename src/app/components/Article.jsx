@@ -12,16 +12,19 @@ const GoodButton = require('./GoodButton.jsx');
 const FollowButton = require('./FollowButton.jsx');
 
 const CommentList = require('./CommentList.jsx');
+
+import { Link } from 'react-router'
+
 const Article = React.createClass({
 	render: function() {
     const user = this.props.user;
     const commentNodes = this.props.article.map(function (card) {
 		return (
 <Card key={card.article_no} style={{margin:'20px auto', maxWidth:'500px'}}>
-  <CardHeader
+  <Link to={`/user/${card.user_no}`}><CardHeader
     title={card.author}
     subtitle="Subtitle"
-    avatar="http://lorempixel.com/100/100/nature/"/>
+    avatar="http://lorempixel.com/100/100/nature/"/></Link>
   <CardText>
   {card.content}
   </CardText>

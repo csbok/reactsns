@@ -1,13 +1,12 @@
 import React from 'react'
 import Article from './Article.jsx'
-import WriteForm from './WriteForm.jsx'
 import config from './config.js'
 import global from './global.js'
 import jquery from 'jquery'
 
 import userStore from '../store/userStore';
 
-export default class NewArticle extends React.Component {
+export default class UserArticle extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,7 +14,6 @@ export default class NewArticle extends React.Component {
     userStore.subscribe(this.onLogin.bind(this));
 
     this.state = { article: [], user : userStore.getState() };
-    this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
   }
   
@@ -35,15 +33,14 @@ export default class NewArticle extends React.Component {
     }).catch(function(ex) {
       console.log('parsing failed', ex)
     });
-*/
-
+    */
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
           withCredentials: true,
       },
 
-      url: config.server+'/new',
+      url: config.server+'/user/' + this.props.user_no,
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -55,33 +52,6 @@ export default class NewArticle extends React.Component {
     });
   }
 
-  handleArticleSubmit(article) {
-    jquery.support.cors = true;
-    jquery.ajax({
-      xhrFields: {
-          withCredentials: true,
-      },
-      url: config.server+'/write',
-      dataType: 'json',
-      type: 'POST',
-      data: article,
-      success: function(data) {
-        if (!data.result) {
-          global.mainSnackbar.setMessage("로그인이 필요합니다");
-          global.mainSnackbar.show();
-          global.loginDialog.show();
-        } else {
-          //this.setState({data: data});
-          this.loadFromServer();
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-//        console.error(this.props.url, status, err.toString());
-      }.bind(this),
-    });
-  }
-
-
   componentDidMount() {
     this.loadFromServer();
   }
@@ -89,7 +59,6 @@ export default class NewArticle extends React.Component {
   render() {
     return (
       <div>
-        {this.state.user.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} user={this.state.user} /> : null} 
         <Article article={this.state.article}  user={this.state.user} />
       </div>
       );
