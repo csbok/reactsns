@@ -9,6 +9,8 @@ import jquery from 'jquery'
 
 import userStore from '../store/userStore';
 
+const LinearProgress = require('material-ui/lib/linear-progress');
+
 export default class NewArticle extends React.Component {
 
   constructor(props) {
@@ -16,7 +18,7 @@ export default class NewArticle extends React.Component {
 
     userStore.subscribe(this.onLogin.bind(this));
 
-    this.state = { article: [], user : userStore.getState() };
+    this.state = { article: [], user : userStore.getState(), loading:true };
     this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
   }
@@ -49,7 +51,7 @@ export default class NewArticle extends React.Component {
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({article: data});
+        this.setState({article: data, loading: false});
       }.bind(this),
       error: function(xhr, status, err) {
 //        console.error(this.props.url, status, err.toString());
@@ -92,6 +94,7 @@ export default class NewArticle extends React.Component {
     return (
       <div>
         {this.state.user.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} user={this.state.user} /> : null} 
+        {this.state.loading ? <LinearProgress mode="indeterminate" style={{marginTop:150, backgroundColor:'white'}} /> : null}        
         <Article article={this.state.article}  user={this.state.user} />
       </div>
       );
