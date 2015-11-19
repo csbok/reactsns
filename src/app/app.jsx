@@ -17,6 +17,7 @@ const JoinForm = require('./components/JoinForm.jsx');
 const WriteForm = require('./components/WriteForm.jsx');
 const UserInfo = require('./components/UserInfo.jsx');
 
+const TopBar = require('./components/TopBar.jsx');
 
 const {
   Router,
@@ -47,6 +48,7 @@ const {
 
     </Route>
     <Route path="/user/:user_no" component={UserInfo} />
+    <Route path="/topbar" component={TopBar} />
 
     {/*<Redirect from="customization" to="/login" />*/}
   </Router>), document.getElementById('app'));
