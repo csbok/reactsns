@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react'
 import Article from './Article.jsx'
 import WriteForm from './WriteForm.jsx'
