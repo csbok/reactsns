@@ -3,7 +3,6 @@
 const React = require('react');
 const FlatButton = require('material-ui/lib/flat-button');
 const config = require('./config.js');
-const global = require('./global.js');
 const jquery = require('jquery');
 
 const GoodButton = React.createClass({
