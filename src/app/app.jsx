@@ -8,7 +8,6 @@ import TimeLine from './components/TimeLine.jsx'
   let Main = require('./components/main.jsx'); // Our custom react component
 
 
-const {Router} = require('react-router');
 const createHistory = require('history/lib/createHashHistory');
 
 const Article = require('./components/Article.jsx');
@@ -20,8 +19,9 @@ const UserInfo = require('./components/UserInfo.jsx');
 
 
 const {
+  Router,
   Route,
-//  Redirect,
+  Redirect,
   IndexRoute,
 } = require('react-router');
 

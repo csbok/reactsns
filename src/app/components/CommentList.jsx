@@ -8,6 +8,8 @@ const config = require('./config.js');
 const global = require('./global.js');
 const jquery = require('jquery');
 
+import { Link } from 'react-router'
+
 const CommentWrite = React.createClass({
   handleArticleSubmit: function(comment) {
     // TODO: 서버에 요청을 수행하고 목록을 업데이트한다
@@ -86,7 +88,7 @@ const CommentList = React.createClass({
   render : function() {
     const commentNodes = this.state.comment.map(function(comment) {
         return(
-          <div key={comment.comment_no} style={{marginLeft:'5px'}}><div style={{display:'inline-block',width:'100px'}}>{comment.display_name}</div> {comment.comment}</div>
+          <div key={comment.comment_no} style={{marginLeft:'5px'}}><div style={{display:'inline-block',width:'100px'}}><Link to={`/user/${comment.user_no}`}>{comment.display_name}</Link></div> {comment.comment}</div>
         );});
 
 

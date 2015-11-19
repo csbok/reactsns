@@ -52,6 +52,15 @@ export default class UserArticle extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+//    alert(this.props.user_no + " / " + nextProps.user_no);
+    this.loadFromServer();
+
+//    this.setState({user_no: nextProps.params.user_no});
+//    this.communi(this.state.user_no);
+  }
+
+
   componentDidMount() {
     this.loadFromServer();
   }
