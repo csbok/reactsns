@@ -16,9 +16,20 @@ const CommentList = require('./CommentList.jsx');
 import { Link } from 'react-router'
 
 const Article = React.createClass({
+  getInitialState () {  
+    return {article_list : [] };
+  },
+
+  appendArticle: function(data) {
+    console.log("append ", JSON.stringify(data));
+    this.setState({article_list: this.state.article_list.concat(data)});
+    console.log("finish : ", JSON.stringify(this.state.article_list));
+    this.forceUpdate();
+  },
+
 	render: function() {
     const user = this.props.user;
-    const commentNodes = this.props.article.map(function (card) {
+    const commentNodes = this.state.article_list.map(function (card) {
 		return (
 <Card key={card.article_no} style={{margin:'20px auto', maxWidth:'500px'}}>
   <Link to={`/user/${card.user_no}`}><CardHeader

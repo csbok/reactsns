@@ -6,6 +6,7 @@ import WriteForm from './WriteForm.jsx'
 import config from './config.js'
 import global from './global.js'
 import jquery from 'jquery'
+const FlatButton = require('material-ui/lib/flat-button');
 
 import userStore from '../store/userStore';
 
@@ -18,8 +19,9 @@ export default class NewArticle extends React.Component {
 
     userStore.subscribe(this.onLogin.bind(this));
 
-    this.state = { article: [], user : userStore.getState(), loading:true };
+    this.state = { article: [], user : userStore.getState(), last_no:0, loading:true };
     this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
+    this.moreButtonClick = this.moreButtonClick.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
   }
   
@@ -27,6 +29,11 @@ export default class NewArticle extends React.Component {
     this.setState({user: userStore.getState()});
     //this.forceUpdate();
   }
+
+  moreButtonClick() {
+    this.loadFromServer();    
+  }
+
 
   loadFromServer() {    
     /*
@@ -40,18 +47,24 @@ export default class NewArticle extends React.Component {
       console.log('parsing failed', ex)
     });
 */
-
+    console.log("start");
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
           withCredentials: true,
       },
 
-      url: config.server+'/new',
+      url: config.server+'/new?last_no=' + this.state.last_no,
       dataType: 'json',
       cache: false,
       success: function(data) {
+        console.log(JSON.stringify(data));
+        if (data && data.length > 1) {
+          this.setState({last_no:data[data.length-1].article_no});
+          console.log("last_no : ", this.state.last_no);
+        }
         this.setState({article: data, loading: false});
+        this.refs.article.appendArticle(data);
       }.bind(this),
       error: function(xhr, status, err) {
 //        console.error(this.props.url, status, err.toString());
@@ -95,7 +108,8 @@ export default class NewArticle extends React.Component {
       <div>
         {this.state.user.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} user={this.state.user} /> : null} 
         {this.state.loading ? <LinearProgress mode="indeterminate" style={{marginTop:150, backgroundColor:'white'}} /> : null}        
-        <Article article={this.state.article}  user={this.state.user} />
+        <Article ref="article" user={this.state.user} />
+        <div  style={{textAlign:'center'}}><FlatButton label="more" onTouchTap={this.moreButtonClick} /></div>
       </div>
       );
   }
