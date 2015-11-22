@@ -6,8 +6,11 @@ import WriteForm from './WriteForm.jsx'
 import config from './config.js'
 import global from './global.js'
 import jquery from 'jquery'
+const FlatButton = require('material-ui/lib/flat-button');
 
 import userStore from '../store/userStore';
+
+const LinearProgress = require('material-ui/lib/linear-progress');
 
 export default class TimeLine extends React.Component {
 
@@ -16,8 +19,9 @@ export default class TimeLine extends React.Component {
 
     userStore.subscribe(this.onLogin.bind(this));
 
-    this.state = { article: [], user : userStore.getState() };
+    this.state = { article: [], user : userStore.getState(),  last_no:0, loading:true };
     this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
+    this.moreButtonClick = this.moreButtonClick.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
   }
   
@@ -26,7 +30,12 @@ export default class TimeLine extends React.Component {
     //this.forceUpdate();
   }
 
+  moreButtonClick() {
+    this.loadFromServer();
+  }
+
   loadFromServer() {    
+    /*
     fetch(config.server+'/new')
       .then(function(response) {
       return response.json()
@@ -36,6 +45,7 @@ export default class TimeLine extends React.Component {
     }).catch(function(ex) {
       console.log('parsing failed', ex)
     });
+*/
 
     jquery.support.cors = true;
     jquery.ajax({
@@ -43,11 +53,17 @@ export default class TimeLine extends React.Component {
           withCredentials: true,
       },
 
-      url: config.server+'/new',
+      url: config.server+'/timeline/' + this.state.user.user_no,
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({article: data});
+        console.log(JSON.stringify(data));
+        if (data && data.length > 1) {
+          this.setState({last_no:data[data.length-1].article_no});
+          console.log("last_no : ", this.state.last_no);
+        }
+        this.setState({article: data, loading: false});
+        this.refs.article.appendArticle(data);
       }.bind(this),
       error: function(xhr, status, err) {
 //        console.error(this.props.url, status, err.toString());
@@ -90,7 +106,9 @@ export default class TimeLine extends React.Component {
     return (
       <div>
         {this.state.user.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} user={this.state.user} /> : null} 
-        <Article article={this.state.article}  user={this.state.user} />
+        {this.state.loading ? <LinearProgress mode="indeterminate" style={{marginTop:150, backgroundColor:'white'}} /> : null}        
+        <Article ref="article" user={this.state.user} />
+        <div  style={{textAlign:'center'}}><FlatButton label="more" onTouchTap={this.moreButtonClick} /></div>
       </div>
       );
   }
