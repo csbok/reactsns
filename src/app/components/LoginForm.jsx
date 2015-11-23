@@ -5,7 +5,6 @@ const Snackbar = require('material-ui/lib/snackbar');
 const TextField = require('material-ui/lib/text-field');
 const FontIcon = require('material-ui/lib/font-icon');
 const config = require('./config.js');
-const global = require('./global.js');
 const jquery = require('jquery');
 
 import { bindActionCreators } from 'redux';

@@ -4,7 +4,6 @@ const RaisedButton = require('material-ui/lib/raised-button');
 const Snackbar = require('material-ui/lib/snackbar');
 const TextField = require('material-ui/lib/text-field');
 const config = require('./config.js');
-const global = require('./global.js');
 const jquery = require('jquery');
 // userName
 // password
