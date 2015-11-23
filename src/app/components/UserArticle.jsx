@@ -25,7 +25,7 @@ export default class UserArticle extends React.Component {
     //this.forceUpdate();
   }
 
-  loadFromServer() {    
+  loadFromServer(user_no) {    
     /*
     fetch(config.server+'/new')
       .then(function(response) {
@@ -43,11 +43,17 @@ export default class UserArticle extends React.Component {
           withCredentials: true,
       },
 
-      url: config.server+'/user/' + this.props.user_no,
+      url: config.server+'/user/' + user_no,
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({article: data, loading:false});
+        console.log(JSON.stringify(data));
+        if (data && data.length > 1) {
+          this.setState({last_no:data[data.length-1].article_no});
+          console.log("last_no : ", this.state.last_no);
+        }
+        this.setState({article: data, loading: false});
+        this.refs.article.appendArticle(data);
       }.bind(this),
       error: function(xhr, status, err) {
 //        console.error(this.props.url, status, err.toString());
@@ -57,7 +63,9 @@ export default class UserArticle extends React.Component {
 
   componentWillReceiveProps(nextProps) {
 //    alert(this.props.user_no + " / " + nextProps.user_no);
-    this.loadFromServer();
+    const user_no = nextProps.user_no;
+    this.refs.article.clearArticle();
+    this.loadFromServer(user_no);
 
 //    this.setState({user_no: nextProps.params.user_no});
 //    this.communi(this.state.user_no);
@@ -73,7 +81,7 @@ export default class UserArticle extends React.Component {
       <div>
           {this.state.loading ? <LinearProgress mode="indeterminate" style={{marginTop:150, backgroundColor:'white'}} /> : null}
 
-        <Article article={this.state.article}  user={this.state.user} />
+        <Article ref="article" user={this.state.user} />
       </div>
       );
   }

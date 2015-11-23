@@ -24,7 +24,12 @@ const Article = React.createClass({
     console.log("append ", JSON.stringify(data));
     this.setState({article_list: this.state.article_list.concat(data)});
     console.log("finish : ", JSON.stringify(this.state.article_list));
-    this.forceUpdate();
+//    this.forceUpdate();
+  },
+
+  clearArticle: function() {
+    this.setState({article_list: []});
+
   },
 
 	render: function() {

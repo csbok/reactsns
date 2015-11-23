@@ -11,31 +11,36 @@ const TopBar = require('./TopBar.jsx');
 
 const Avatar = require('material-ui/lib/avatar');
 
+
 const UserInfo = React.createClass({
   getInitialState: function() {
     return {userName:'', following:0, follower:0, article_count: 0, comment_count:0, user_no:this.props.params.user_no};
   },
  componentDidMount: function() {
+    this.communi(this.state.user_no);
   },
 
   componentWillReceiveProps:function(nextProps) {
-    this.setState({user_no: nextProps.params.user_no});
-    this.communi(this.state.user_no);
-  },
-  communi: function() {
+    const user_no = nextProps.params.user_no;
+    this.setState({user_no: user_no});
 
+    this.communi(user_no);
+  },
+  communi: function(user_no) {
+    console.log("communi!");
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
           withCredentials: true,
       },
 
-      url: config.server+'/info/' + this.state.user_no,
+      url: config.server+'/info/' + user_no,
       dataType: 'json',
       cache: false,
             type: 'GET',
       success: function(data) {
         this.setState({userName: data.user_name, following:data.following_count, follower:data.follower_count, article_count:data.article_count, comment_count:data.comment_count});
+//        this.forceUpdate();
 //        this.setState({article: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -104,7 +109,6 @@ const UserInfo = React.createClass({
     return (
 		<div>
 			<TopBar />
-
  
 
             <div style={styles.tabs}>
