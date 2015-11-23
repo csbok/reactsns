@@ -16,7 +16,7 @@ export default class UserArticle extends React.Component {
 
     userStore.subscribe(this.onLogin.bind(this));
 
-    this.state = { article: [], user : userStore.getState(), loading: true };
+    this.state = { user : userStore.getState(), loading: true, user_no : this.props.user_no };
     this.loadFromServer = this.loadFromServer.bind(this);
   }
   
@@ -52,7 +52,7 @@ export default class UserArticle extends React.Component {
           this.setState({last_no:data[data.length-1].article_no});
           console.log("last_no : ", this.state.last_no);
         }
-        this.setState({article: data, loading: false});
+        this.setState({loading: false});
         this.refs.article.appendArticle(data);
       }.bind(this),
       error: function(xhr, status, err) {
@@ -62,18 +62,17 @@ export default class UserArticle extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-//    alert(this.props.user_no + " / " + nextProps.user_no);
-    const user_no = nextProps.user_no;
-    this.refs.article.clearArticle();
-    this.loadFromServer(user_no);
-
-//    this.setState({user_no: nextProps.params.user_no});
-//    this.communi(this.state.user_no);
+    if (nextProps.user_no !== this.state.user_no) {
+      const user_no = nextProps.user_no;
+      this.refs.article.clearArticle();
+      this.setState({user_no: user_no});
+      this.loadFromServer(user_no);      
+    }
   }
 
 
   componentDidMount() {
-    this.loadFromServer();
+    this.loadFromServer(this.state.user_no);
   }
 
   render() {

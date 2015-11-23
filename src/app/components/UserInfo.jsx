@@ -21,10 +21,12 @@ const UserInfo = React.createClass({
   },
 
   componentWillReceiveProps:function(nextProps) {
+    if (nextProps.params.user_no !== this.state.user_no) {
     const user_no = nextProps.params.user_no;
     this.setState({user_no: user_no});
 
     this.communi(user_no);
+  }
   },
   communi: function(user_no) {
     console.log("communi!");
