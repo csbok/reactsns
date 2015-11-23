@@ -77,12 +77,12 @@ const LoginForm = React.createClass({
         <div><TextField ref="login_pw" floatingLabelText="password" /></div>
         <div><RaisedButton label="로그인" primary={true} style={{width:'260px'}} onTouchTap={this.handleSubmit} /></div>
         <p>
-            <RaisedButton secondary={true} style={{width:'260px'}} label="페이스북으로 로그인" labelPosition="after" onTouchTap={()=>{window.location.href= "http://localhost:8088/auth/facebook";}}>
+            <RaisedButton secondary={true} style={{width:'260px'}} label="페이스북으로 로그인" labelPosition="after" onTouchTap={()=>{window.location.href=config.server+"/auth/facebook";}}>
               <FontIcon className="muidocs-icon-custom-github" />
             </RaisedButton>
         </p>
         <p>
-            <RaisedButton secondary={true} style={{width:'260px'}} label="구글로 로그인" labelPosition="after" onTouchTap={()=>{window.location.href= "http://localhost:8088/auth/google";}}>
+            <RaisedButton secondary={true} style={{width:'260px'}} label="구글로 로그인" labelPosition="after" onTouchTap={()=>{window.location.href=config.server+"/auth/google";}}>
               <FontIcon className="muidocs-icon-custom-github" />
             </RaisedButton>
         </p>
