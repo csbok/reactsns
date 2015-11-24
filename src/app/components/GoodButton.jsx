@@ -1,17 +1,23 @@
 'use strict';
 
-const React = require('react');
-const FlatButton = require('material-ui/lib/flat-button');
-const config = require('./config.js');
-const jquery = require('jquery');
+import React      from 'react';
+import FlatButton from 'material-ui/lib/flat-button';
+import config     from './config.js';
+import jquery     from 'jquery';
 
-const GoodButton = React.createClass({
-  getInitialState () {  
+export default class GoodButton extends React.Component {
+  constructor(props) {
+    super(props);
+
     let good = '';
     this.props.already ?  good = '좋아요 취소' : good = '좋아요';
-    return {goodMessage : good, goodCount : this.props.goodCount };
-  },
- handleLikeSubmit: function(e) {
+
+    this.state = {goodMessage : good, goodCount : this.props.goodCount };
+
+    this.handleLikeSubmit = this.handleLikeSubmit.bind(this);
+  }
+
+  handleLikeSubmit(e) {
     e.preventDefault();
 
     jquery.support.cors = true;
@@ -41,12 +47,12 @@ const GoodButton = React.createClass({
         console.error(config.server, status, err.toString());
       }.bind(this),
     });
-  },
-render: function() {
-  return (
-    <FlatButton label={this.state.goodMessage+this.state.goodCount} onTouchTap={this.handleLikeSubmit} />
-    )
-},
-});
+  }
 
-module.exports = GoodButton;
+  render() {
+    return (
+      <FlatButton label={this.state.goodMessage+this.state.goodCount} onTouchTap={this.handleLikeSubmit} />
+      )
+  }
+}
+

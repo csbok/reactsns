@@ -1,20 +1,24 @@
 'use strict';
 
-const React = require('react');
-const Dialog = require('material-ui/lib/dialog');
-const FollowButton = require('./FollowButton.jsx');
+import React        from 'react';
+import Dialog       from 'material-ui/lib/dialog';
+import FollowButton from './FollowButton.jsx';
 
-const FollowList = React.createClass({
-  getInitialState : function() {
-    return {listdata: []};
-  },
+export default class FollowList extends React.Component {
+  constructor(props) {
+    super(props);
 
-  show: function() {
+    this.state = {listdata: []};
+
+    this.show = this.show.bind(this);
+  }
+
+  show() {
     this.setState({listdata: this.props.listdata});
     this.refs.followListDialog.show();
-  },
+  }
 
-	render: function() {
+  render() {
   const commentNodes = this.state.listdata.map(function(item) {
     return(
       <div key={item.user_no} style={{marginLeft:'5px'}}>
@@ -38,8 +42,6 @@ const FollowList = React.createClass({
 </Dialog>
 
 			);
-  },
+  }
 
-});
-
-module.exports = FollowList;
+}

@@ -1,18 +1,23 @@
 'use strict';
-const React = require('react');
-const RaisedButton = require('material-ui/lib/raised-button');
-const Snackbar = require('material-ui/lib/snackbar');
-const TextField = require('material-ui/lib/text-field');
-const config = require('./config.js');
-const jquery = require('jquery');
+import React        from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
+import Snackbar     from 'material-ui/lib/snackbar';
+import TextField    from 'material-ui/lib/text-field';
+import config       from './config.js';
+import jquery       from 'jquery';
 // userName
 // password
 // mail
-const JoinForm = React.createClass({
-  getInitialState () {  
-    return {message: ''};
-  },
-  handleSubmit: function(e) {
+export default class JoinForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {message: ''};
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
     const id = this.refs.userName.getValue().trim();
     const pw = this.refs.password.getValue().trim();
@@ -89,9 +94,9 @@ fetch(config.server+'/join',
       }.bind(this),
     });
 
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <Snackbar
@@ -103,7 +108,5 @@ fetch(config.server+'/join',
         <div><RaisedButton label="회원가입" primary={true} style={{width:'260px'}} onTouchTap={this.handleSubmit} /></div>
       </form>
       )
-  },
-});
-
-module.exports = JoinForm;
+  }
+}

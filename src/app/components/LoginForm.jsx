@@ -1,11 +1,11 @@
 'use strict';
-const React = require('react');
-const RaisedButton = require('material-ui/lib/raised-button');
-const Snackbar = require('material-ui/lib/snackbar');
-const TextField = require('material-ui/lib/text-field');
-const FontIcon = require('material-ui/lib/font-icon');
-const config = require('./config.js');
-const jquery = require('jquery');
+import React        from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
+import Snackbar     from 'material-ui/lib/snackbar';
+import TextField    from 'material-ui/lib/text-field';
+import FontIcon     from 'material-ui/lib/font-icon';
+import config       from './config.js';
+import jquery       from 'jquery';
 
 import { bindActionCreators } from 'redux';
 import * as UserActions from '../actions/user';
@@ -13,11 +13,15 @@ import userStore from '../store/userStore';
 
 const actions = bindActionCreators(UserActions, userStore.dispatch);
 
-const LoginForm = React.createClass({
-  getInitialState () {  
-    return {message: ''};
-  },
-  handleSubmit: function(e) {
+export default class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {message: ''};
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
     const id = this.refs.login_id.getValue().trim();
     const pw = this.refs.login_pw.getValue().trim();
@@ -58,12 +62,9 @@ const LoginForm = React.createClass({
         this.refs.snackbar.show();
       }.bind(this),
     });
-  },
+  }
 
-
-
-  render: function() {
-
+  render() {
     let standardActions = [
       { text: 'Okay' },
     ];    
@@ -87,7 +88,6 @@ const LoginForm = React.createClass({
         </p>
       </form>
     );
-  },
-});
+  }
+}
 
-module.exports = LoginForm;

@@ -1,25 +1,24 @@
 'use strict';
 
-const React = require('react');
-const Dialog = require('material-ui/lib/dialog');
+import React      from 'react';
+import Dialog     from 'material-ui/lib/dialog';
 
-const LoginForm = require('./LoginForm.jsx');
+import LoginForm  from './LoginForm.jsx';
 
 // 로그인 다이얼로그
-const LoginDialog = React.createClass({
-  componentDidMount: function() {
+export default class LoginDialog extends React.Component {
+  componentDidMount() {
       global.loginDialog = this.refs.loginDialog;
-  },
+  }
 
-  render: function() {
+  render() {
     return (
-        <Dialog title="로그인하기" ref="loginDialog">
-          <div style={{textAlign:'center'}}>
-            <LoginForm />
-          </div>
-        </Dialog>      
-      )
-  },
-});
+      <Dialog title="로그인하기" ref="loginDialog">
+        <div style={{textAlign:'center'}}>
+          <LoginForm />
+        </div>
+      </Dialog>
+    )
+  }
+}
 
-module.exports = LoginDialog;

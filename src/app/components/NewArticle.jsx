@@ -4,7 +4,6 @@ import React from 'react'
 import Article from './Article.jsx'
 import WriteForm from './WriteForm.jsx'
 import config from './config.js'
-import global from './global.js'
 import jquery from 'jquery'
 const FlatButton = require('material-ui/lib/flat-button');
 

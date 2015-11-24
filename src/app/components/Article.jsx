@@ -1,38 +1,39 @@
 'use strict';
 
-const React = require('react');
-const FlatButton = require('material-ui/lib/flat-button');
-const Card = require('material-ui/lib/card/card');
-const CardHeader = require('material-ui/lib/card/card-header');
-const CardMedia = require('material-ui/lib/card/card-media');
-const CardTitle = require('material-ui/lib/card/card-title');
-const CardActions = require('material-ui/lib/card/card-actions');
-const CardText = require('material-ui/lib/card/card-text');
-const GoodButton = require('./GoodButton.jsx');
-const FollowButton = require('./FollowButton.jsx');
-
-const CommentList = require('./CommentList.jsx');
+import React        from 'react'
+import FlatButton   from 'material-ui/lib/flat-button';
+import Card         from 'material-ui/lib/card/card';
+import CardHeader   from 'material-ui/lib/card/card-header';
+import CardMedia    from 'material-ui/lib/card/card-media';
+import CardTitle    from 'material-ui/lib/card/card-title';
+import CardActions  from 'material-ui/lib/card/card-actions';
+import CardText     from 'material-ui/lib/card/card-text';
+import GoodButton   from './GoodButton.jsx';
+import FollowButton from'./FollowButton.jsx';
+import CommentList  from './CommentList.jsx';
 
 import { Link } from 'react-router'
 
-const Article = React.createClass({
-  getInitialState () {  
-    return {article_list : [] };
-  },
+export default class Article extends React.Component {
+  constructor(props) {
+    super(props);
 
-  appendArticle: function(data) {
+    this.state = {article_list: []};
+  }
+
+  appendArticle(data) {
     console.log("append ", JSON.stringify(data));
     this.setState({article_list: this.state.article_list.concat(data)});
     console.log("finish : ", JSON.stringify(this.state.article_list));
 //    this.forceUpdate();
-  },
+  }
 
-  clearArticle: function() {
+  clearArticle() {
     this.setState({article_list: []});
 
-  },
+  }
 
-	render: function() {
+  render() {
     const user = this.props.user;
     const commentNodes = this.state.article_list.map(function (card) {
 		return (
@@ -59,7 +60,5 @@ const Article = React.createClass({
         <div>{commentNodes}</div>
     );    
 
-	},
-});
-
-module.exports = Article;
+	}
+}

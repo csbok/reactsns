@@ -1,17 +1,17 @@
 'use strict';
 
-const React = require('react');
-const Dialog = require('material-ui/lib/dialog');
+import React    from 'react';
+import Dialog   from 'material-ui/lib/dialog';
 
-const JoinForm = require('./JoinForm.jsx');
+import JoinForm from './JoinForm.jsx';
 
 // 회원가입 다이얼로그
-const JoinDialog = React.createClass({
-  componentDidMount: function() {
+export default class JoinDialog extends React.Component {
+  componentDidMount() {
     global.joinDialog = this.refs.joinDialog;
-  },
+  }
 
-  render: function() {
+  render() {
     return (
          <Dialog
             title="회원가입하기"
@@ -21,7 +21,6 @@ const JoinDialog = React.createClass({
             </div>
           </Dialog>
       )
-  },
-});
+  }
+}
 
-module.exports = JoinDialog;

@@ -1,17 +1,23 @@
 'use strict';
 
-const React = require('react');
-const FlatButton = require('material-ui/lib/flat-button');
-const config = require('./config.js');
-const jquery = require('jquery');
+import React      from 'react';
+import FlatButton from 'material-ui/lib/flat-button';
+import config     from './config.js';
+import jquery     from 'jquery';
 
-const FollowButton = React.createClass({
-  getInitialState () {  
+
+export default class FollowButton extends React.Component {
+  constructor(props) {
+    super(props);
+
     let follow = '';
     this.props.already ?  follow = '팔로우 해제' : follow = '팔로우 신청';
-    return {followMessage : follow };
-  },
- handleLikeSubmit: function(e) {
+    this.state = { followMessage  : follow };
+
+    this.handleLikeSubmit = this.handleLikeSubmit.bind(this);
+  }
+
+  handleLikeSubmit(e) {
     e.preventDefault();
 
     jquery.support.cors = true;
@@ -41,12 +47,13 @@ const FollowButton = React.createClass({
         console.error(config.server, status, err.toString());
       }.bind(this),
     });
-  },
-render: function() {
-  return (
-    <FlatButton label={this.state.followMessage} onTouchTap={this.handleLikeSubmit} />
-    )
-},
-});
+  }
 
-module.exports = FollowButton;
+  render() {
+    return (
+      <FlatButton label={this.state.followMessage} onTouchTap={this.handleLikeSubmit} />
+    )
+  }
+}
+
+
