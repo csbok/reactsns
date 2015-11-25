@@ -56,3 +56,13 @@ export default class GoodButton extends React.Component {
   }
 }
 
+GoodButton.propTypes = {
+  article_no: React.PropTypes.number.isRequired,
+  already: React.PropTypes.bool,
+  goodCount: React.PropTypes.number,
+};
+
+GoodButton.defaultProps = {
+  already : false,
+  goodCount : 0,
+};

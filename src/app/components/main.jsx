@@ -1,30 +1,30 @@
 /** In this file, we create a React component which incorporates components provided by material-ui */
 'use strict';
 
-const React = require('react');
+import React    from 'react';
+import Colors   from 'material-ui/lib/styles/colors';
+import Tabs     from 'material-ui/lib/tabs/tabs';
+import Tab      from 'material-ui/lib/tabs/tab';
+import TopBar   from './TopBar.jsx';
 
-const Colors = require('material-ui/lib/styles/colors');
-const Tabs = require('material-ui/lib/tabs/tabs');
-const Tab = require('material-ui/lib/tabs/tab');
+export default class Main extends React.Component {
+  constructor(props) {
+    super(props);
 
-const TopBar = require('./TopBar.jsx');
+    this.state = {tabIndex : 0};
 
-const Main = React.createClass({
-  getInitialState: function() {
-
-    return { tabsValue:''};
-  },
-
+    this._handleTabChange = this._handleTabChange.bind(this);
+  }
 
   _handleTabChange(value, e, tab) {
     if (!isNaN(value)) {
       this.props.history.pushState(null, tab.props.route);
     }
 //    this.setState({tabIndex: this._getSelectedIndex()});
-  },
+  }
 
 
-  render: function() {
+  render() {
 
   let padding = 400;
   let styles = {
@@ -68,9 +68,7 @@ const Main = React.createClass({
 
       </div>
     );
-  },
+  }
 
-});
+};
 
-
-module.exports = Main;

@@ -1,29 +1,31 @@
 'use strict';
 
-const React = require('react');
-const DropZone = require('./DropZone.jsx');
-const config = require('./config.js');
-const jquery = require('jquery');
+import React      from 'react';
+import DropZone   from './DropZone.jsx';
+import config     from './config.js';
+import jquery     from 'jquery';
 
-const FollowList = require('./FollowList.js');
-import userStore from '../store/userStore';
+import FollowList from './FollowList.js';
+import userStore  from '../store/userStore';
 
-const MyInfo = React.createClass({
-  getInitialState: function() {
+export default class MyInfo extends React.Component {
+  constructor(props) {
+    super(props);
+
     userStore.subscribe(this.onLogin.bind(this));
-    return {userName:'', following:0, follower:0, article_count: 0, comment_count:0, user: userStore.getState()};
-  },
+    this.state = {userName:'', following:0, follower:0, article_count: 0, comment_count:0, user: userStore.getState()};
+  }
 
-  onLogin: function() {
+  onLogin() {
     this.setState({user: userStore.getState()});
     //this.forceUpdate();
-  },
- componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.communi();
-  },
+  }
 
-  communi: function() {
-
+  communi() {
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
@@ -42,9 +44,9 @@ const MyInfo = React.createClass({
         console.error(config.server, status, err.toString());
       }.bind(this),
     });
-  },
+  }
 
-  getFollowing: function() {
+  getFollowing() {
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
@@ -62,9 +64,9 @@ const MyInfo = React.createClass({
 //        console.error(this.props.url, status, err.toString());
       }.bind(this),
     });
-  },
+  }
 
-  getFollower: function() {
+  getFollower() {
     jquery.support.cors = true;
     jquery.ajax({
       xhrFields: {
@@ -82,10 +84,10 @@ const MyInfo = React.createClass({
 //        console.error(this.props.url, status, err.toString());
       }.bind(this),
     });
-  },  
+  }
 
 
-  render: function() {
+  render() {
     return (
         <div>
                         { this.state.user.user_no}
@@ -98,7 +100,6 @@ const MyInfo = React.createClass({
           <FollowList ref="followListDialog" listdata={this.state.listdata} />
         </div>
       )
-  },
-});
+  }
+}
 
-module.exports = MyInfo;

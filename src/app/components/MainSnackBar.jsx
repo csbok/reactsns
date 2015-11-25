@@ -1,30 +1,31 @@
 'use strict';
 
-const React = require('react');
-const Snackbar = require('material-ui/lib/snackbar');
+import React		from 'react';
+import Snackbar	from 'material-ui/lib/snackbar';
 
-const MainSnackBar = React.createClass({
-	getInitialState: function() {
-		return {message:''};
-	},
+export default class MainSnackBar extends React.Component {
+	constructor(props) {
+		super(props);
 
-	componentDidMount: function() {
+		this.state = {message: ''};
+
+	}
+
+	componentDidMount() {
     	global.mainSnackbar = this; 
-	},
+	}
 
-	show: function() {
+	show() {
 		this.refs.snackbar.show();
-	},
+	}
 
-	setMessage: function(msg) {
+	setMessage(msg) {
 		this.setState({message:msg});
-	},
+	}
 	
-	render: function() {
+	render() {
 		return (
 			<Snackbar message={this.state.message} ref="snackbar" />
 		)
- 	},
-});
-
-module.exports = MainSnackBar;
+ 	}
+}
