@@ -41,7 +41,8 @@ export default class TopBar extends React.Component {
 	logoutButtonClick(e) {
 		e.preventDefault();
 
-		jquery.support.cors = true;
+		//jquery.support.cors = true;
+		/*
 		jquery.ajax({
 			xhrFields: {
 				withCredentials: true,
@@ -66,11 +67,13 @@ export default class TopBar extends React.Component {
 					global.mainSnackbar.show();
 			}.bind(this),
 		});
+*/
 	}
 
 	// url을 직접 입력하여 이동되었거나, F5로 새로고침 하였을때, 로그인이 되었는지 확인
 	login() {
-		jquery.support.cors = true;
+//		jquery.support.cors = true;
+/*
 		jquery.ajax({
 			xhrFields: {
 				withCredentials: true,
@@ -87,11 +90,6 @@ export default class TopBar extends React.Component {
 					global.mainSnackbar.show();
 					actions.loginUser(data.user.display_name, data.user.user_no);
 				}
-				/* else { 
-					console.log("!!! " + JSON.stringify(data));
-					global.mainSnackbar.setState({message:data.message});
-					global.mainSnackbar.show();
-				}*/
 				}.bind(this),
 			
 			error: function(xhr, status, err) {
@@ -99,6 +97,7 @@ export default class TopBar extends React.Component {
 				this.refs.snackbar.show();
 			}.bind(this),
 		});		
+*/
 	}
 
 	// redux로 부터 로그인 상태가 변경되면 호출됨
