@@ -41,7 +41,7 @@ const UserInfo = React.createClass({
       cache: false,
             type: 'GET',
       success: function(data) {
-        this.setState({userName: data.user_name, following:data.following_count, follower:data.follower_count, article_count:data.article_count, comment_count:data.comment_count});
+        this.setState({userName: data.display_name, following:data.following_count, follower:data.follower_count, article_count:data.article_count, comment_count:data.comment_count});
 //        this.forceUpdate();
 //        this.setState({article: data});
       }.bind(this),
