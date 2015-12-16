@@ -1,4 +1,4 @@
-import NewArticle from './components/NewArticle.jsx'
+import NewArticleWrap from './components/NewArticleWrap.jsx'
 import TimeLine from './components/TimeLine.jsx'
 
 (function () {
@@ -40,11 +40,11 @@ const {
   ReactDOM.render((
   <Router history={createHistory({queryKey: false})}>
     <Route path="/" component={Main}>
-      <IndexRoute component={NewArticle} />
+      <IndexRoute component={NewArticleWrap} />
       <Route path="timeline" component={TimeLine} />
       <Route path="myinfo" component={MyInfo} />
       <Route path="login" component={LoginForm} />
-      <Route path="/_=_" component={NewArticle} />
+      <Route path="/_=_" component={NewArticleWrap} />
 
     </Route>
     <Route path="/user/:user_no" component={UserInfo} />

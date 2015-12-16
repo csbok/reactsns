@@ -23,6 +23,10 @@ var app = express();
 //app.use(app.router);
 
 
+app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+// 아래처럼 설정을 따로 안해줘도 동작한다.
+//app.set('views', __dirname + '/views'); 
 
 app.use(express.static('public'));
 
@@ -216,6 +220,16 @@ var articleController = require('./controllers/article');
 
 import Main from './src/app/components/main';
 import NewArticle from './src/app/components/NewArticle';
+
+app.get('/ejs', function(req,res) {
+    articleController.serverSide(req, res, function(rows) {
+      var serverRendering = React.renderToString(<Main><NewArticle articleList={rows} /></Main>);
+
+      res.render('test', {serverRendering: serverRendering, init : rows});
+    });
+  
+  
+});
 
 app.get('/index', function(req, res) {
     articleController.serverSide(req, res, function(rows) {
