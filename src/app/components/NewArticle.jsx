@@ -18,10 +18,15 @@ export default class NewArticle extends React.Component {
 
     userStore.subscribe(this.onLogin.bind(this));
 
-    this.state = { user : userStore.getState(), last_no:0, loading:true };
+    this.state = { user : userStore.getState(), last_no:0, loading:true, articleList : this.props.articleList};
+    
+    
     this.handleArticleSubmit = this.handleArticleSubmit.bind(this);
     this.moreButtonClick = this.moreButtonClick.bind(this);
     this.loadFromServer = this.loadFromServer.bind(this);
+
+    console.log("!!!!!!!!!!" + this.props.articleList);
+
   }
   
   onLogin() {
@@ -107,7 +112,7 @@ export default class NewArticle extends React.Component {
       <div>
         {this.state.user.isLogin ? <WriteForm  onArticleSubmit={this.handleArticleSubmit} user={this.state.user} /> : null} 
         {this.state.loading ? <LinearProgress mode="indeterminate" style={{marginTop:150, backgroundColor:'white'}} /> : null}        
-        <Article ref="article" user={this.state.user} />
+        <Article ref="article" user={this.state.user} articleList={this.state.articleList} />
         <div  style={{textAlign:'center'}}><FlatButton label="more" onTouchTap={this.moreButtonClick} /></div>
       </div>
       );

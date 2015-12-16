@@ -18,7 +18,7 @@ export default class Article extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {article_list: []};
+    this.state = {article_list: this.props.articleList};
   }
 
   appendArticle(data) {

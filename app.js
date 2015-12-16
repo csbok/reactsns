@@ -22,19 +22,6 @@ var app = express();
 // deprecate
 //app.use(app.router);
 
-import Counter from './src/app/components/main';
-
-app.use(function(req, res, next) {
-    var html = React.renderToString(<Counter />);
-    return res.send(html);
-
-  /*
-  var router = Router.create({location: req.url, routes: routes})
-  router.run(function(Handler, state) {
-  })
-*/
-});
-
 
 
 app.use(express.static('public'));
@@ -225,6 +212,29 @@ app.post('/login', function(req, res) {
 });
 */
 
+var articleController = require('./controllers/article');
+
+import Main from './src/app/components/main';
+import NewArticle from './src/app/components/NewArticle';
+
+app.get('/index', function(req, res) {
+    articleController.serverSide(req, res, function(rows) {
+      console.log("\n\n1111111" + JSON.stringify(rows) + "\n\n");
+
+      var html = React.renderToString(<Main><NewArticle articleList={rows} /></Main>);
+      res.send(html);
+
+    });
+    
+    
+
+  /*
+  var router = Router.create({location: req.url, routes: routes})
+  router.run(function(Handler, state) {
+  })
+*/
+});
+
 
 //---------------------------------------------------------------------------------------------------------------------
 app.get('/logout', function(req, res) {
@@ -255,7 +265,7 @@ app.post('/comment/:article_no', ensureAuthenticated, commentController.write);
 
 
 //---------------------------------------------------------------------------------------------------------------------
-var articleController = require('./controllers/article');
+
 app.post('/write', ensureAuthenticated, articleController.write);
 app.get('/timeline/:myid', articleController.timeline);
 app.get('/new', articleController.newArticle);
